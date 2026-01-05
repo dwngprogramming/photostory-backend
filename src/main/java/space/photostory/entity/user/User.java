@@ -1,11 +1,10 @@
 package space.photostory.entity.user;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import space.photostory.constant.Gender;
 import space.photostory.entity.Base;
 
 import java.time.LocalDate;
@@ -20,18 +19,25 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User extends Base {
 
-    @Schema(description = "Unique identifier of the user (ULID-based)", example = "01KDN7C9F9KZPCHCXYXG22CZA6")
-    String id;
-
-    @Schema(description = "Username of the user", example = "johndoe")
+    @Column(unique = true, length = 30)
     String username;
 
-    @Schema(description = "Email address of the user", example = "johndoe@test.mail")
+    @Column(unique = true, length = 50)
     String email;
 
-    @Schema(description = "Full name of the user", example = "John Doe")
+    @Column(nullable = false)
+    String password;
+
+    @Column(name = "full_name", length = 100)
     String fullName;
 
-    @Schema(description = "Date of birth of the user", example = "1990-01-01")
+    @Column
     LocalDate dob;
+
+    @Column(length = 10)
+    @Enumerated(EnumType.STRING)
+    Gender gender;
+
+    @Column
+    String avatar;
 }

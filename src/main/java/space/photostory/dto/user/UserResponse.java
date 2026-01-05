@@ -3,6 +3,7 @@ package space.photostory.dto.user;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
+import space.photostory.constant.Gender;
 
 import java.time.LocalDate;
 
@@ -23,6 +24,12 @@ public record UserResponse(
         String fullName,
 
         @Schema(description = "Date of birth of the user", example = "1990-01-01")
-        LocalDate dob
+        LocalDate dob,
+
+        @Schema(description = "Gender of the user", example = "male")
+        Gender gender,
+
+        @Schema(description = "Profile picture URL of the user", example = "https://example.com/profile.jpg")
+        String avatar
 ) {
 }

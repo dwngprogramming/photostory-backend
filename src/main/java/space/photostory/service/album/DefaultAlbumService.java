@@ -22,12 +22,10 @@ public class DefaultAlbumService implements AlbumService {
     AlbumMapper albumMapper;
 
     @Override
-    public AlbumResponse getAlbumByCode(String code) {
-        AlbumResponse response = albumMapper.toResponse(albumRepository.findByCode(code));
-        if (response == null) {
-            throw new NotFoundException("album.not_found_by_code", code);
-        }
-        return response;
+    public AlbumResponse getAlbumById(String id) {
+        Album album = albumRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("album.not_found_by_code", id));
+        return albumMapper.toResponse(album);
     }
 
     @Override
