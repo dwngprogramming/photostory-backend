@@ -5,7 +5,7 @@ import space.photostory.constant.LogLevel;
 import space.photostory.exception.ApplicationException;
 
 public class InternalServerException extends ApplicationException {
-    public InternalServerException() {
-        super(HttpStatus.INTERNAL_SERVER_ERROR, "server.error", LogLevel.ERROR);
+    public InternalServerException(Throwable e) {
+        super(e, HttpStatus.INTERNAL_SERVER_ERROR, "server.error", LogLevel.ERROR);
     }
 }

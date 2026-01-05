@@ -6,5 +6,5 @@ import space.photostory.entity.album.Album;
 
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, String> {
-    Album findByCode(String code);
+
 }

@@ -1,12 +1,18 @@
 package space.photostory.dto.album;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+import space.photostory.constant.Gender;
 import space.photostory.dto.story.StoryRequest;
+import space.photostory.dto.toc.TOCRequest;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder(toBuilder = true)
@@ -15,6 +21,10 @@ public record AlbumRequest(
         @NotBlank
         @Schema(description = "Unique code of the album", example = "ABC123XYZ")
         String code,
+
+        @NotNull
+        @Schema(description = "Date when the album was saved", example = "2025-12-20")
+        LocalDate savedDate,
 
         @NotNull
         @Size(min = 1, max = 10)
@@ -35,8 +45,14 @@ public record AlbumRequest(
         @Schema(description = "Note in french flip", example = "This is a special note.")
         String frenchFlipNote,
 
+        @Schema(description = "Place of french flip", example = "Paris")
+        String frenchFlipPlace,
+
         @Schema(description = "URL of the album avatar image", example = "https://example.com/avatar.jpg")
         String avatarUrl,
+
+        @Schema(description = "Gender of the album owner", example = "male")
+        Gender avatarGender,
 
         @Schema(description = "Preface of the album", example = "Welcome to my photo album!")
         String preface,
@@ -44,9 +60,13 @@ public record AlbumRequest(
         @Schema(description = "URL of the highlight photo", example = "https://example.com/highlight.jpg")
         String highlightPhotoUrl,
 
-        @NotNull
+        @NotEmpty
+        @Schema(description = "Table of contents of the album")
+        List<@Valid TOCRequest> tableOfContents,
+
+        @NotEmpty
         @Schema(description = "List of photo-story in the album")
-        List<StoryRequest> stories,
+        List<@Valid StoryRequest> stories,
 
         @Schema(description = "Afterword of the album", example = "Thank you for viewing my album.")
         String afterword

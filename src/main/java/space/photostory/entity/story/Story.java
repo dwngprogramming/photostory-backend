@@ -11,6 +11,7 @@ import space.photostory.entity.location.Location;
 import space.photostory.entity.photo.Photo;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Story extends Base {
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 40)
     String title;
 
     @Column(name = "event_date", nullable = false, length = 10)

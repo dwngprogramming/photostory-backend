@@ -1,6 +1,9 @@
 package space.photostory.dto.story;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import space.photostory.constant.WeatherType;
 import space.photostory.dto.location.LocationRequest;
@@ -30,10 +33,15 @@ public record StoryRequest(
         @Schema(description = "URL of the background music for the story", example = "https://example.com/music.mp3")
         String musicUrl,
 
+        @NotEmpty
         @Schema(description = "List of photos associated with the story")
-        List<PhotoRequest> photos,
+        List<@Valid PhotoRequest> photos,
 
+        @NotNull
         @Schema(description = "List of locations associated with the story")
-        List<LocationRequest> locations
+        List<@Valid LocationRequest> locations
 ) {
+    public StoryRequest {
+        if (locations == null) locations = List.of();
+    }
 }

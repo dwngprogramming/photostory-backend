@@ -2,9 +2,14 @@ package space.photostory.dto.album;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import lombok.Builder;
+import space.photostory.constant.Gender;
 import space.photostory.dto.story.StoryResponse;
+import space.photostory.dto.toc.TOCResponse;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder(toBuilder = true)
@@ -19,6 +24,9 @@ public record AlbumResponse(
 
         @Schema(description = "Name of the album owner", example = "John Doe")
         String ownerName,
+
+        @Schema(description = "Date when the album was saved", example = "2025-12-20")
+        LocalDate savedDate,
 
         @Schema(description = "List of recipient name", example = "[\"Dung Pham\", \"Minh Tam\"]")
         List<String> recipients,
@@ -35,14 +43,23 @@ public record AlbumResponse(
         @Schema(description = "Note in french flip", example = "This is a special note.")
         String frenchFlipNote,
 
+        @Schema(description = "Place of french flip", example = "Paris")
+        String frenchFlipPlace,
+
         @Schema(description = "URL of the album avatar image", example = "https://example.com/avatar.jpg")
         String avatarUrl,
+
+        @Schema(description = "Gender of the album owner", example = "male")
+        Gender avatarGender,
 
         @Schema(description = "Preface of the album", example = "Welcome to my photo album!")
         String preface,
 
         @Schema(description = "URL of the highlight photo", example = "https://example.com/highlight.jpg")
         String highlightPhotoUrl,
+
+        @Schema(description = "Table of contents of the album")
+        List<TOCResponse> tableOfContents,
 
         @Schema(description = "List of photo-story in the album")
         List<StoryResponse> stories,
