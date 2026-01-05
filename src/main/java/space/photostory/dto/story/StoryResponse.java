@@ -20,7 +20,7 @@ public record StoryResponse(
         @Schema(description = "Title of the story", example = "A Day at the Beach")
         String title,
 
-        @Schema(description = "Date of the event in the story", example = "2025-12-14")
+        @Schema(description = "Date when the album was saved in Offset Date Time", example = "2025-12-20")
         LocalDate eventDate,
 
         @Schema(description = "Display order of the story in the album", example = "1")

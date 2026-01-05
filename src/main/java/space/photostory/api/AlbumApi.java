@@ -20,9 +20,9 @@ import space.photostory.service.album.AlbumService;
 public class AlbumApi {
     AlbumService albumService;
 
-    @GetMapping("/{code}")
-    public ResponseEntity<ApiResponse<AlbumResponse>> getAlbumByCode(@PathVariable String code) {
-        AlbumResponse albumResponse = albumService.getAlbumByCode(code);
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<AlbumResponse>> getAlbumById(@PathVariable String id) {
+        AlbumResponse albumResponse = albumService.getAlbumById(id);
         return ResponseEntity.ok().body(ApiResponse.getSuccess(albumResponse));
     }
 

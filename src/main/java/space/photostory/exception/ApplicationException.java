@@ -21,4 +21,12 @@ public abstract class ApplicationException extends RuntimeException {
         this.logLevel = logLevel;
         this.args = args;
     }
+
+    protected ApplicationException(Throwable e, HttpStatus httpStatus, String messageCode, LogLevel logLevel, Object... args) {
+        super(messageCode, e);
+        this.httpStatus = httpStatus;
+        this.messageCode = messageCode;
+        this.logLevel = logLevel;
+        this.args = args;
+    }
 }
