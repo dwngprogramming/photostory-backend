@@ -6,11 +6,13 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import space.photostory.dto.album.AlbumRequest;
 import space.photostory.dto.album.AlbumResponse;
+import space.photostory.dto.sharing.SharingResponse;
 import space.photostory.entity.album.Album;
 import space.photostory.entity.user.User;
 import space.photostory.exception.exts.NotFoundException;
 import space.photostory.mapper.album.AlbumMapper;
 import space.photostory.repository.album.AlbumRepository;
+import space.photostory.security.SharingService;
 import space.photostory.service.user.UserService;
 
 @Service
@@ -19,6 +21,7 @@ import space.photostory.service.user.UserService;
 public class DefaultAlbumService implements AlbumService {
     AlbumRepository albumRepository;
     UserService userService;
+    SharingService sharingService;
     AlbumMapper albumMapper;
 
     @Override
@@ -45,5 +48,18 @@ public class DefaultAlbumService implements AlbumService {
 
         album.setOwner(user);
         albumRepository.save(album);
+    }
+
+    @Override
+    public SharingResponse generateAccessPermission(String code) {
+        String albumId = albumRepository.findIdByCode(code)
+                .orElseThrow(() -> new NotFoundException("unwrap.code.not_found", code));
+
+        return sharingService.createSharingAccess(albumId);
+    }
+
+    @Override
+    public boolean existsByCode(String code) {
+        return albumRepository.existsByCode(code);
     }
 }

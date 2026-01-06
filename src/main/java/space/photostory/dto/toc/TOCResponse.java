@@ -1,11 +1,13 @@
 package space.photostory.dto.toc;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
 import java.time.LocalDate;
 
 @Builder(toBuilder = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record TOCResponse(
 
         @Schema(description = "Title of story", example = "Story Title")
