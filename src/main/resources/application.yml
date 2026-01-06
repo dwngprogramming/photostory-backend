@@ -8,3 +8,7 @@ springdoc:
     operations-sorter: alpha
   api-docs:
     path: /v3/api-docs
+
+sharing-link:
+  key: ${SHARING_LINK_KEY}
+  exp-ms: ${SHARING_LINK_EXP_MS}
