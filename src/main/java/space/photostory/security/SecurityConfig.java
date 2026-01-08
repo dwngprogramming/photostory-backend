@@ -52,7 +52,7 @@ public class SecurityConfig {
                 "https://photostory.space",
                 "https://*.photostory.space",
                 // For Vercel previews deployment
-                "https://photostory-*-dwngprogrammings-projects.vercel.app"
+                "https://photostory-*.vercel.app"
         ));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
