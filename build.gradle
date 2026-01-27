@@ -36,6 +36,7 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
     implementation 'com.github.f4b6a3:ulid-creator:5.2.3'
     implementation 'com.nimbusds:nimbus-jose-jwt:10.5'
+    implementation "com.aventrix.jnanoid:jnanoid:2.0.0"
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
