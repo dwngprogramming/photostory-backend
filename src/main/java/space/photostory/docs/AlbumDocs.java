@@ -38,10 +38,10 @@ public interface AlbumDocs {
                     )
             )
     })
-    ResponseEntity<ApiResponse<SharingResponse>> unwrapAlbumByCode(String code);
+    ResponseEntity<ApiResponse<SharingResponse>> getSharingInfoByCodeIfAlbumPublic(String code);
 
-    @Operation(summary = "Get Sharing Album by ID",
-            description = "Retrieve album details using album ID and a valid sharing token.")
+    @Operation(summary = "Get Public Sharing Album by key",
+            description = "Retrieve album details using a public access key (slug).")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(
                     responseCode = "200",
@@ -80,7 +80,7 @@ public interface AlbumDocs {
                     )
             )
     })
-    ResponseEntity<ApiResponse<AlbumResponse>> getSharingAlbum(String id, String token);
+    ResponseEntity<ApiResponse<AlbumResponse>> viewPublicAlbum(String key);
 
     @Operation(summary = "Create new Photostory Album",
             description = "Create a new album with the provided details.")

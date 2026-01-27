@@ -2,23 +2,21 @@ package space.photostory.dto.album;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import space.photostory.constant.Gender;
 import space.photostory.dto.story.StoryRequest;
 import space.photostory.dto.toc.TOCRequest;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder(toBuilder = true)
 public record AlbumRequest(
 
         @NotBlank
+        @Size(min = 5, max = 20)
+        @Pattern(regexp = "^[a-zA-Z0-9_.-]+$")
         @Schema(description = "Unique code of the album", example = "ABC123XYZ")
         String code,
 

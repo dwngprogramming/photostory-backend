@@ -12,9 +12,10 @@ import space.photostory.dto.ApiResponse;
 import space.photostory.dto.album.AlbumRequest;
 import space.photostory.dto.album.AlbumResponse;
 import space.photostory.dto.sharing.SharingResponse;
+import space.photostory.dto.sharing.VerifyPinRequest;
 import space.photostory.exception.exts.ConflictException;
-import space.photostory.security.SharingService;
 import space.photostory.service.album.AlbumService;
+import space.photostory.service.sharing.SharingService;
 
 @RestController
 @RequestMapping("/api/v1/albums")
@@ -24,14 +25,33 @@ public class AlbumApi implements AlbumDocs {
     AlbumService albumService;
     SharingService sharingService;
 
-    @GetMapping(value = "/unwrap/{code}", produces = "application/json")
-    public ResponseEntity<ApiResponse<SharingResponse>> unwrapAlbumByCode(@PathVariable String code) {
-        SharingResponse sharingResponse = albumService.generateAccessPermission(code);
+    @GetMapping(value = "/sharing/link/{id}", produces = "application/json")
+    public ResponseEntity<ApiResponse<SharingResponse>> getSharingInfoBySharingLink(@PathVariable String id) {
+        return null;
+    }
+
+    @GetMapping(value = "/sharing/code/{code}", produces = "application/json")
+    public ResponseEntity<ApiResponse<SharingResponse>> getSharingInfoByCodeIfAlbumPublic(@Valid @PathVariable String code) {
+        SharingResponse sharingResponse = sharingService.verifyAccessPermission(code);
         return ResponseEntity.ok().body(ApiResponse.getSuccess(sharingResponse));
     }
 
-    @GetMapping(value = "/sharing/{id}", produces = "application/json")
-    public ResponseEntity<ApiResponse<AlbumResponse>> getSharingAlbum(@PathVariable String id, @RequestParam String token) {
+    @PostMapping(value = "/sharing/pin", produces = "application/json")
+    public ResponseEntity<ApiResponse<SharingResponse>> getSharingInfoByVerifyPin(@Valid @RequestBody VerifyPinRequest request) {
+        SharingResponse sharingResponse = sharingService.verifyAccessPin(request.code(), request.pin());
+        return ResponseEntity.ok().body(ApiResponse.getSuccess(sharingResponse));
+    }
+
+    @GetMapping(value = "/view/public", produces = "application/json")
+    public ResponseEntity<ApiResponse<AlbumResponse>> viewPublicAlbum(@RequestParam String key) {
+        AlbumResponse albumResponse = albumService.getPublicAlbumByKey(key);
+        return ResponseEntity.ok().body(ApiResponse.getSuccess(albumResponse));
+    }
+
+    @GetMapping(value = "/view/{id}", produces = "application/json")
+    public ResponseEntity<ApiResponse<AlbumResponse>> viewPermissionAlbum(@PathVariable String id,
+                                                                          @RequestHeader(value = "X-Album-Authorization") String albumToken) {
+        String token = albumToken.replace("Bearer ", "");
         // Token error will be handled in SharingService
         sharingService.verifySharingToken(token, ResourceType.album);
         AlbumResponse albumResponse = albumService.getAlbumById(id);
