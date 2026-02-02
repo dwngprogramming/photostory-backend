@@ -2,14 +2,13 @@ package space.photostory.dto.album;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import lombok.Builder;
 import space.photostory.constant.Gender;
+import space.photostory.constant.RelationshipType;
 import space.photostory.dto.story.StoryResponse;
 import space.photostory.dto.toc.TOCResponse;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.List;
 
 @Builder(toBuilder = true)
@@ -24,6 +23,15 @@ public record AlbumResponse(
 
         @Schema(description = "Name of the album owner", example = "John Doe")
         String ownerName,
+
+        @Schema(description = "Relationship type between the album owner and the album receiver", example = "lover")
+        RelationshipType relationshipType,
+
+        @Schema(description = "Custom relationship by locale (Example for \"wife\" in Vietnamese", example = "Vợ iu")
+        String customRelationship,
+
+        @Schema(description = "Locale of the album to display relationship", example = "vi")
+        String customRelationshipLocale,
 
         @Schema(description = "Date when the album was saved", example = "2025-12-20")
         LocalDate savedDate,

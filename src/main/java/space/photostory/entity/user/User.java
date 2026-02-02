@@ -6,8 +6,13 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import space.photostory.constant.Gender;
 import space.photostory.entity.Base;
+import space.photostory.entity.album.Album;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -40,4 +45,12 @@ public class User extends Base {
 
     @Column
     String avatar;
+
+    @ManyToMany(mappedBy = "sharedWith", fetch = FetchType.LAZY)
+    @Builder.Default
+    Set<Album> sharedAlbums = new HashSet<>();
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    List<Album> ownedAlbums = new ArrayList<>();
 }

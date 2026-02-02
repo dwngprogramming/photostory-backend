@@ -13,5 +13,9 @@ public interface AlbumRepository extends JpaRepository<Album, String> {
     @Query("SELECT a.id FROM Album a WHERE a.code = :code")
     Optional<String> findIdByCode(String code);
 
+    Optional<Album> findByCode(String code);
+
+    Optional<Album> findByPublicAccessKey(String key);
+
     boolean existsByCode(String code);
 }
