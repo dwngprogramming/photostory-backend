@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import space.photostory.constant.RelationshipType;
 import space.photostory.constant.ResourceVisibility;
 import space.photostory.constant.Gender;
+import space.photostory.constant.SupportedLocale;
 import space.photostory.entity.Base;
 import space.photostory.entity.story.Story;
 import space.photostory.entity.user.User;
@@ -43,6 +45,17 @@ public class Album extends Base {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     ResourceVisibility visibility = ResourceVisibility.PRIVATE;
+
+    @Column(name = "relationship_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    RelationshipType relationshipType;
+
+    @Column(name = "custom_relationship", length = 30)
+    String customRelationship;
+
+    @Column(name = "custom_relationship_locale")
+    @Enumerated(EnumType.STRING)
+    SupportedLocale customRelationshipLocale;
 
     @Column(name = "saved_date", nullable = false)
     LocalDate savedDate;
