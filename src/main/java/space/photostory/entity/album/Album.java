@@ -28,7 +28,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Album extends Base {
 
-    @Column(unique = true, length = 50)
+    @Column(unique = true, length = 30)
     String code;
 
     @Column(unique = true, name = "public_access_key", length = 16)

@@ -56,17 +56,16 @@ public class DefaultSharingService implements SharingService {
 
     @Override
     public SharingResponse verifyAccessPin(String code, String pin) {
-        String albumId = albumRepository.findIdByCode(code)
+        Album album = albumRepository.findByCode(code)
                 .orElseThrow(() -> new NotFoundException("unwrap.code.not_found", code));
 
-        String encodedPin = encoder.encode(pin);
-
-        boolean isValidPin = albumRepository.existsByCode(code) && encoder.matches(pin, encodedPin);
+        boolean isValidPin = encoder.matches(pin, album.getPin());
 
         if (!isValidPin) {
             throw new UnauthorizedException("unwrap.pin.invalid");
         }
-        return createPermissionAccess(albumId, ResourceType.album, ResourceVisibility.PRIVATE);
+
+        return createPermissionAccess(album.getId(), ResourceType.album, ResourceVisibility.PRIVATE);
     }
 
     @Override

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public record VerifyPinRequest(
         @NotBlank
-        @Size(min = 5, max = 20)
+        @Size(min = 5, max = 30)
         String code,
 
         @NotBlank
