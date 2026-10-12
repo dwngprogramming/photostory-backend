@@ -40,3 +40,6 @@ out/
 docker-compose.prod.yml
 .env.prod
 .env.dev
+
+### Local documentation ###
+/docs/
