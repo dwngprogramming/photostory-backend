@@ -17,5 +17,7 @@ public interface AlbumMapper {
     AlbumResponse toResponse(Album album);
 
     @Mapping(ignore = true, target = "tableOfContents")
+    @Mapping(ignore = true, target = "pin")
+    @Mapping(ignore = true, target = "publicAccessKey")
     Album toEntity(AlbumRequest request);
 }

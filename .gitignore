@@ -39,3 +39,4 @@ out/
 ### Production environment files ###
 docker-compose.prod.yml
 .env.prod
+.env.dev
