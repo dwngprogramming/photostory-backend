@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition(
         info = @Info(
                 title = "PhotoStory API Service",
-                version = "1.0.1",
+                version = "1.0.2",
                 description = "API documentation for PhotoStory service."
         ),
         security = @SecurityRequirement(name = "bearerAuth")

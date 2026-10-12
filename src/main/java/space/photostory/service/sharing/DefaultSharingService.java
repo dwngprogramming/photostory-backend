@@ -24,6 +24,7 @@ import space.photostory.repository.album.AlbumRepository;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -103,7 +104,7 @@ public class DefaultSharingService implements SharingService {
     }
 
     @Override
-    public void verifySharingToken(String token, ResourceType expectedType) {
+    public void verifySharingToken(String token, ResourceType expectedType, String resourceId) {
         try {
             JWSObject jwsObject = JWSObject.parse(token);
             JWSVerifier verifier = new MACVerifier(sharingLinkKey.getBytes());
@@ -116,6 +117,10 @@ public class DefaultSharingService implements SharingService {
             ResourceType type = ResourceType.valueOf(claims.getStringClaim("resource"));
             if (type != expectedType) {
                 throw new ForbiddenException("sharing.invalid");
+            }
+
+            if (!Objects.equals(claims.getSubject(), resourceId)) {
+                throw new ForbiddenException("sharing.forbidden");
             }
 
             Date referenceTime = new Date();

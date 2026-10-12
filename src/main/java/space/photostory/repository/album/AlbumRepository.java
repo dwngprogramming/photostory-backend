@@ -13,4 +13,6 @@ public interface AlbumRepository extends JpaRepository<Album, String> {
     Optional<Album> findByPublicAccessKey(String key);
 
     boolean existsByCode(String code);
+
+    boolean existsByPublicAccessKey(String key);
 }

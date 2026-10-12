@@ -5,6 +5,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 import space.photostory.constant.Gender;
+import space.photostory.constant.RelationshipType;
+import space.photostory.constant.ResourceVisibility;
+import space.photostory.constant.SupportedLocale;
 import space.photostory.dto.story.StoryRequest;
 import space.photostory.dto.toc.TOCRequest;
 
@@ -19,6 +22,25 @@ public record AlbumRequest(
         @Pattern(regexp = "^[a-zA-Z0-9_.-]+$")
         @Schema(description = "Unique code of the album", example = "ABC123XYZ")
         String code,
+
+        @NotNull
+        @Schema(description = "Visibility of the album. PRIVATE requires a PIN", example = "PRIVATE")
+        ResourceVisibility visibility,
+
+        @Pattern(regexp = "^\\d{6}$")
+        @Schema(description = "6-digit PIN to unlock the album. Required when visibility is PRIVATE", example = "123456")
+        String pin,
+
+        @NotNull
+        @Schema(description = "Relationship type between the album owner and the receiver", example = "lover")
+        RelationshipType relationshipType,
+
+        @Size(max = 30)
+        @Schema(description = "Custom relationship label displayed to the receiver", example = "Vợ iu")
+        String customRelationship,
+
+        @Schema(description = "Locale of the custom relationship label", example = "vi")
+        SupportedLocale customRelationshipLocale,
 
         @NotNull
         @Schema(description = "Date when the album was saved", example = "2025-12-20")

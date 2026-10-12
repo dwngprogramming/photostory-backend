@@ -9,7 +9,7 @@ public interface SharingService {
 
     SharingResponse verifyAccessPin(String code, String pin);
 
-    void verifySharingToken(String token, ResourceType type);
+    void verifySharingToken(String token, ResourceType type, String resourceId);
 
     SharingResponse createPublicAccess(String resourceId, ResourceType type);
 

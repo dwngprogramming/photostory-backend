@@ -53,7 +53,7 @@ public class AlbumApi implements AlbumDocs {
                                                                           @RequestHeader(value = "X-Album-Authorization") String albumToken) {
         String token = albumToken.replace("Bearer ", "");
         // Token error will be handled in SharingService
-        sharingService.verifySharingToken(token, ResourceType.album);
+        sharingService.verifySharingToken(token, ResourceType.album, id);
         AlbumResponse albumResponse = albumService.getAlbumById(id);
         return ResponseEntity.ok().body(ApiResponse.getSuccess(albumResponse));
     }
