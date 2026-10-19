@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "stories")
+@Table(name = "stories", indexes = @Index(name = "idx_stories_album_id", columnList = "album_id"))
 @Getter
 @Setter
 @SuperBuilder
@@ -34,7 +34,7 @@ public class Story extends Base {
     @Column(name = "display_order_in_day", nullable = false)
     Integer displayOrderInDay;
 
-    @Column
+    @Column(length = 20)
     @Enumerated(EnumType.STRING)
     WeatherType weather;
 

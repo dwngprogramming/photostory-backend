@@ -26,7 +26,7 @@ import java.util.Objects;
 public abstract class Base {
 
     @Id
-    @Column(columnDefinition = "CHAR(26)", nullable = false, updatable = false)
+    @Column(length = 26, nullable = false, updatable = false)
     String id;
 
     @Column(name = "status", nullable = false, length = 20)
@@ -35,7 +35,7 @@ public abstract class Base {
     GeneralStatus status = GeneralStatus.ACTIVE;
 
     @CreatedDate
-    @Column(name = "created_at", columnDefinition = "DATETIME(6)", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     Instant createdAt;
 
     @CreatedBy
@@ -43,7 +43,7 @@ public abstract class Base {
     String createdBy;
 
     @LastModifiedDate
-    @Column(name = "updated_at", columnDefinition = "DATETIME(6)")
+    @Column(name = "updated_at")
     Instant updatedAt;
 
     @LastModifiedBy
