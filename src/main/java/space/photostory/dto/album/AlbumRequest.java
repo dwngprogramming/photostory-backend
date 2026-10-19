@@ -24,11 +24,11 @@ public record AlbumRequest(
         String code,
 
         @NotNull
-        @Schema(description = "Visibility of the album. PRIVATE requires a PIN", example = "PRIVATE")
+        @Schema(description = "Visibility of the album. PIN_PROTECTED requires a PIN", example = "PIN_PROTECTED")
         ResourceVisibility visibility,
 
         @Pattern(regexp = "^\\d{6}$")
-        @Schema(description = "6-digit PIN to unlock the album. Required when visibility is PRIVATE", example = "123456")
+        @Schema(description = "6-digit PIN to unlock the album. Required when visibility is PIN_PROTECTED", example = "123456")
         String pin,
 
         @NotNull
