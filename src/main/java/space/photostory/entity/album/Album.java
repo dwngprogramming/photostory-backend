@@ -44,7 +44,7 @@ public class Album extends Base {
     @Column(name = "visibility", nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    ResourceVisibility visibility = ResourceVisibility.PRIVATE;
+    ResourceVisibility visibility = ResourceVisibility.PIN_PROTECTED;
 
     @Column(name = "relationship_type", nullable = false)
     @Enumerated(EnumType.STRING)

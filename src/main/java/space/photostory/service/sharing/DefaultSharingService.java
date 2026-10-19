@@ -50,8 +50,8 @@ public class DefaultSharingService implements SharingService {
 
         return switch (visibility) {
             case PUBLIC -> createPublicAccess(publicAccessKey, ResourceType.album);
-            case PRIVATE -> SharingResponse.needVerifyPin();
-            case RESTRICTED -> throw new ForbiddenException("sharing.access_reject", code);
+            case PIN_PROTECTED -> SharingResponse.needVerifyPin();
+            case INVITE_ONLY -> throw new ForbiddenException("sharing.access_reject", code);
         };
     }
 
@@ -66,7 +66,7 @@ public class DefaultSharingService implements SharingService {
             throw new UnauthorizedException("unwrap.pin.invalid");
         }
 
-        return createPermissionAccess(album.getId(), ResourceType.album, ResourceVisibility.PRIVATE);
+        return createPermissionAccess(album.getId(), ResourceType.album, ResourceVisibility.PIN_PROTECTED);
     }
 
     @Override

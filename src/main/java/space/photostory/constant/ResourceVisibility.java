@@ -2,6 +2,6 @@ package space.photostory.constant;
 
 public enum ResourceVisibility {
     PUBLIC,
-    PRIVATE,
-    RESTRICTED
+    PIN_PROTECTED,
+    INVITE_ONLY
 }

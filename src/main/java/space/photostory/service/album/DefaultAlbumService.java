@@ -48,7 +48,7 @@ public class DefaultAlbumService implements AlbumService {
 
     @Override
     public void createAlbum(String userId, AlbumRequest request) {
-        boolean isPrivate = request.visibility() == ResourceVisibility.PRIVATE;
+        boolean isPrivate = request.visibility() == ResourceVisibility.PIN_PROTECTED;
         if (isPrivate && request.pin() == null) {
             throw new BadRequestException("album.pin.required");
         }
