@@ -8,7 +8,7 @@ import space.photostory.constant.LocationTheme;
 import space.photostory.entity.Base;
 
 @Entity
-@Table(name = "locations")
+@Table(name = "locations", indexes = @Index(name = "idx_locations_story_id", columnList = "story_id"))
 @Getter
 @Setter
 @SuperBuilder

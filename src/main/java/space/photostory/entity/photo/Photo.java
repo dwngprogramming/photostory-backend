@@ -10,7 +10,7 @@ import space.photostory.entity.Base;
 import space.photostory.entity.story.Story;
 
 @Entity
-@Table(name = "photos")
+@Table(name = "photos", indexes = @Index(name = "idx_photos_story_id", columnList = "story_id"))
 @Getter
 @Setter
 @SuperBuilder
@@ -22,11 +22,11 @@ public class Photo extends Base {
     @Column(name = "media_url", nullable = false)
     String mediaUrl;
 
-    @Column(name = "media_type", nullable = false)
+    @Column(name = "media_type", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     MediaType mediaType;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     Orientation orientation;
 

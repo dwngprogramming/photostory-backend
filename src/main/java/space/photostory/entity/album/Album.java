@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import space.photostory.constant.RelationshipType;
 import space.photostory.constant.ResourceVisibility;
 import space.photostory.constant.Gender;
@@ -19,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "albums")
+@Table(name = "albums", indexes = @Index(name = "idx_albums_owner_id", columnList = "owner_id"))
 @Getter
 @Setter
 @SuperBuilder
@@ -41,19 +43,19 @@ public class Album extends Base {
     @JoinColumn(name = "owner_id", nullable = false)
     User owner;
 
-    @Column(name = "visibility", nullable = false)
+    @Column(name = "visibility", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     @Builder.Default
     ResourceVisibility visibility = ResourceVisibility.PIN_PROTECTED;
 
-    @Column(name = "relationship_type", nullable = false)
+    @Column(name = "relationship_type", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     RelationshipType relationshipType;
 
     @Column(name = "custom_relationship", length = 30)
     String customRelationship;
 
-    @Column(name = "custom_relationship_locale")
+    @Column(name = "custom_relationship_locale", length = 20)
     @Enumerated(EnumType.STRING)
     SupportedLocale customRelationshipLocale;
 
@@ -63,7 +65,8 @@ public class Album extends Base {
     @ElementCollection
     @CollectionTable(
             name = "album_recipients",
-            joinColumns = @JoinColumn(name = "album_id")
+            joinColumns = @JoinColumn(name = "album_id"),
+            indexes = @Index(name = "idx_album_recipients_album_id", columnList = "album_id")
     )
     List<String> recipients;
 
@@ -85,11 +88,12 @@ public class Album extends Base {
     @Column(name = "avatar_url")
     String avatarUrl;
 
-    @Column(name = "avatar_gender")
+    @Column(name = "avatar_gender", length = 20)
     @Enumerated(EnumType.STRING)
     Gender avatarGender;
 
-    @Column(name = "table_of_contents", columnDefinition = "JSON")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "table_of_contents", columnDefinition = "jsonb")
     String tableOfContents;
 
     @Column(columnDefinition = "TEXT")
@@ -109,7 +113,8 @@ public class Album extends Base {
     @JoinTable(
             name = "album_shared_users",
             joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "user_id"),
+            indexes = @Index(name = "idx_album_shared_users_user_id", columnList = "user_id")
     )
     @Builder.Default
     Set<User> sharedWith = new HashSet<>();
