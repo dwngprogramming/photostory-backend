@@ -1,4 +1,4 @@
-package space.photostory.entity.user;
+package space.photostory.entity.profile;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,25 +16,25 @@ import java.util.Locale;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "profiles")
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User extends Base {
+public class Profile extends Base {
 
-    // lowercase only: normalized in normalize(), enforced by ck_users_username_lowercase (Flyway)
-    @Column(unique = true, length = 30)
+    @Column(name = "account_id", unique = true, nullable = false, updatable = false, length = 36)
+    String accountId;       // Keycloak account id: UUID v4 stored as varchar(36)
+
+    // lowercase only: normalized in normalize(), enforced by ck_profiles_username_normalized (Flyway)
+    @Column(length = 30, unique = true, nullable = false, updatable = false)
     String username;
 
-    // lowercase only: normalized in normalize(), enforced by ck_users_email_lowercase (Flyway)
-    @Column(unique = true, length = 50)
+    // lowercase only: normalized in normalize(), enforced by ck_profiles_email_normalized (Flyway)
+    @Column(length = 50, unique = true, nullable = false, updatable = false)
     String email;
-
-    @Column(nullable = false)
-    String password;
 
     @Column(name = "full_name", length = 100)
     String fullName;

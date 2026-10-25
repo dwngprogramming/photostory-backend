@@ -1,7 +1,7 @@
 package space.photostory.service.user;
 
-import space.photostory.entity.user.User;
+import space.photostory.entity.profile.Profile;
 
 public interface UserService {
-    User getEntityById(String id);
+    Profile getEntityById(String id);
 }

@@ -1,12 +1,12 @@
 package space.photostory.mapper.user;
 
 import org.mapstruct.Mapper;
-import space.photostory.dto.user.UserResponse;
-import space.photostory.entity.user.User;
+import space.photostory.dto.profile.ProfileResponse;
+import space.photostory.entity.profile.Profile;
 import space.photostory.mapper.GlobalMapperConfig;
 import space.photostory.mapper.MapperHelper;
 
 @Mapper(config = GlobalMapperConfig.class, uses = {MapperHelper.class})
 public interface UserMapper {
-    UserResponse toResponse(User user);
+    ProfileResponse toResponse(Profile profile);
 }

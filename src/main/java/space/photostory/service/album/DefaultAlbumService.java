@@ -10,7 +10,7 @@ import space.photostory.constant.ResourceVisibility;
 import space.photostory.dto.album.AlbumRequest;
 import space.photostory.dto.album.AlbumResponse;
 import space.photostory.entity.album.Album;
-import space.photostory.entity.user.User;
+import space.photostory.entity.profile.Profile;
 import space.photostory.exception.exts.NotFoundException;
 import space.photostory.exception.exts.BadRequestException;
 import space.photostory.exception.exts.ForbiddenException;
@@ -53,7 +53,7 @@ public class DefaultAlbumService implements AlbumService {
             throw new BadRequestException("album.pin.required");
         }
 
-        User user = userService.getEntityById(userId);
+        Profile profile = userService.getEntityById(userId);
         Album album = albumMapper.toEntity(request);
 
         if (album.getStories() != null) {
@@ -66,7 +66,7 @@ public class DefaultAlbumService implements AlbumService {
             });
         }
 
-        album.setOwner(user);
+        album.setOwner(profile);
         album.setVisibility(request.visibility());
         album.setPublicAccessKey(generatePublicAccessKey());
         if (isPrivate) {

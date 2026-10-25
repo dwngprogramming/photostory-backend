@@ -37,6 +37,6 @@ public class Photo extends Base {
     Integer displayOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "story_id", nullable = false)
+    @JoinColumn(name = "story_id", nullable = false, foreignKey = @ForeignKey(name = "fk_photos_story"))
     Story story;
 }

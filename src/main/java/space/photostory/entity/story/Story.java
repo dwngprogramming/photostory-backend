@@ -11,7 +11,6 @@ import space.photostory.entity.location.Location;
 import space.photostory.entity.photo.Photo;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +48,11 @@ public class Story extends Base {
     List<Photo> photos = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "story_id", nullable = false)
+    @JoinColumn(name = "story_id", nullable = false, foreignKey = @ForeignKey(name = "fk_locations_story"))
     @Builder.Default
     List<Location> locations = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "album_id", nullable = false)
+    @JoinColumn(name = "album_id", nullable = false, foreignKey = @ForeignKey(name = "fk_stories_album"))
     Album album;
 }
