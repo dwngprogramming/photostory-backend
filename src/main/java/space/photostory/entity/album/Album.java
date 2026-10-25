@@ -11,8 +11,8 @@ import space.photostory.constant.ResourceVisibility;
 import space.photostory.constant.Gender;
 import space.photostory.constant.SupportedLocale;
 import space.photostory.entity.Base;
+import space.photostory.entity.profile.Profile;
 import space.photostory.entity.story.Story;
-import space.photostory.entity.user.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,8 +40,8 @@ public class Album extends Base {
     String pin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", nullable = false)
-    User owner;
+    @JoinColumn(name = "owner_id", nullable = false, foreignKey = @ForeignKey(name = "fk_albums_owner"))
+    Profile owner;
 
     @Column(name = "visibility", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
@@ -65,7 +65,7 @@ public class Album extends Base {
     @ElementCollection
     @CollectionTable(
             name = "album_recipients",
-            joinColumns = @JoinColumn(name = "album_id"),
+            joinColumns = @JoinColumn(name = "album_id", foreignKey = @ForeignKey(name = "fk_album_recipients_album")),
             indexes = @Index(name = "idx_album_recipients_album_id", columnList = "album_id")
     )
     List<String> recipients;
@@ -109,13 +109,14 @@ public class Album extends Base {
     @Column(columnDefinition = "TEXT")
     String afterword;
 
+    // (album_id, profile_id) included index for album_id (left-most prefix). Just create an index for profile_id
     @ManyToMany
     @JoinTable(
-            name = "album_shared_users",
-            joinColumns = @JoinColumn(name = "album_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"),
-            indexes = @Index(name = "idx_album_shared_users_user_id", columnList = "user_id")
+            name = "album_shared_profiles",
+            joinColumns = @JoinColumn(name = "album_id", foreignKey = @ForeignKey(name = "fk_album_shared_profiles_album")),
+            inverseJoinColumns = @JoinColumn(name = "profile_id", foreignKey = @ForeignKey(name = "fk_album_shared_profiles_profile")),
+            indexes = @Index(name = "idx_album_shared_profiles_profile_id", columnList = "profile_id")
     )
     @Builder.Default
-    Set<User> sharedWith = new HashSet<>();
+    Set<Profile> sharedWith = new HashSet<>();
 }

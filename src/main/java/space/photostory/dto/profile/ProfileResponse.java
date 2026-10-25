@@ -1,4 +1,4 @@
-package space.photostory.dto.user;
+package space.photostory.dto.profile;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Builder(toBuilder = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record UserResponse(
+public record ProfileResponse(
 
         @Schema(description = "Unique identifier of the user (ULID-based)", example = "01KDN7C9F9KZPCHCXYXG22CZA6")
         String id,
